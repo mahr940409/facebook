@@ -1,0 +1,12 @@
+<%@post%>
+
+<%= form_with(url: post_path(post_id: @post.id), method: :put) do |form| %>
+	<div class="field">
+			<%= form.label :text, "Post:", placeholder: "Escribe tu comentario:" %><br>
+			<%= form.text_area :text, value: @post.text, rows: 5, cols: 40, placeholder: "¡Post aqui!" %>
+	</div>
+
+	<div class="actions">
+		    <%= form.submit "Editar" %>
+	</div>
+<%end%>

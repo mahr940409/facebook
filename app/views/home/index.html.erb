@@ -1,0 +1,25 @@
+<h2>My friends List</h2>
+
+
+<h2>VER MAS AMIGOS</h2>
+<%= link_to "Ver mas amigos", friends_path(user_id: current_user.id) %>
+
+<h3>Crear Post</h3>
+
+<%= form_with(model: @post, method: :post) do |form| %>
+  <div class="field">
+    <%= form.label :text, "Escribe tu post:" %><br>
+    <%= form.text_area :text, rows: 5, cols: 40, placeholder: "¡Comparte tus pensamientos aquí!" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Publicar" %>
+  </div>
+<% end %>
+
+<%@posts.each do |post|%>
+    <p><%= post.text%></p>
+    <%= post.created_at.strftime("%d/%m/%Y %H:%M") %>
+    <p>Publicacion realizada por: <%= post.user.email%></p>
+    <p><%= link_to "Ver o realizar un comentario", posts_path(post_id: post.id ) %> </p>
+<%end%>

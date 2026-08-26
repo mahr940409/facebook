@@ -1,0 +1,12 @@
+<%@post%>
+
+<%= form_with(url: post_comment_path(post_id: @post.id, id: @comment.id), method: :put) do |form| %>
+	<div class="field">
+			<%= form.label :text, "Comment:", placeholder: "Escribe tu comentario:" %><br>
+			<%= form.text_area :text, value: @comment.text, rows: 5, cols: 40, placeholder: "¡Comenta aqui!" %>
+	</div>
+
+	<div class="actions">
+		    <%= form.submit "Editar" %>
+	</div>
+<%end%>
