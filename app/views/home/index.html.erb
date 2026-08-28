@@ -1,7 +1,6 @@
 <h2>My friends List</h2>
 
-
-<h2>VER MAS AMIGOS</h2>
+<h3>MY USER IS: <%= current_user.email %></h3>
 <%= link_to "Ver mas amigos", friends_path(user_id: current_user.id) %>
 
 <h3>Crear Post</h3>
@@ -21,5 +20,5 @@
     <p><%= post.text%></p>
     <%= post.created_at.strftime("%d/%m/%Y %H:%M") %>
     <p>Publicacion realizada por: <%= post.user.email%></p>
-    <p><%= link_to "Ver o realizar un comentario", posts_path(post_id: post.id ) %> </p>
+    <p><%= link_to "Ver o realizar un comentario", post_path(post) %> </p>
 <%end%>

@@ -18,8 +18,12 @@ class FriendsController < ApplicationController
 
   def create
     friend = User.find(params[:id])
-    current_user.add_friend(friend)
-    redirect_to friends_path
+    f = current_user.add_friend(friend)
+    if f.save
+      redirect_to friends_path, notice: "Solicitud envida con Exito"
+    else
+      redirect_to friends_path, alert: "No se pudo enviar la solicitud de amistad"
+    end
   end
 
   def update

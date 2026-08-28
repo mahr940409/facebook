@@ -1,1 +1,61 @@
-<h2>funciona</h2>
+<%= link_to "Home", root_path%>
+
+<h2>POST</h2>
+
+
+
+ <%=@post.text%>
+ <h4> Likes <%=@count%></h4>
+	
+	<%if @like.present?%>	
+		<%= button_to "dislike", post_like_path(post_id: @post.id, id: @like.id), method: :delete %>
+	<%else%>	
+		<%= button_to "like", post_likes_path(post_id: @post.id), method: :post%>
+	<%end%>	
+
+
+
+	<%if @post.user_id == current_user.id%>
+		<%= form_with(url: post_path(@post.id) , method: :delete) do |form| %>
+			<div class="actions">
+				<%= form.submit "Eliminar"%>
+			</div>
+		<%end%>
+		<%= form_with(url: edit_post_path(@post.id) , method: :get) do |form| %>
+			<div class="actions">
+				<%= form.submit "Editar" %>
+			</div>
+		<%end%>	
+	<%end%>
+
+
+
+<hr>
+
+<%= form_with(url: post_comments_path(@post.id) , method: :post) do |form| %>
+	<div class="field">
+			<%= form.label :text, "Escribe tu comentario:" %><br>
+			<%= form.text_area :text, rows: 5, cols: 40, placeholder: "¡Comenta aqui!" %>
+	</div>
+
+	<div class="actions">
+			<%= form.submit "Publicar" %>
+	</div>
+<%end%>
+
+<hr>
+
+<%if @comments.present? %>
+	<%@comments.each do |comment|%>
+			<p><%= comment.text%></p>
+			<%= comment.created_at.strftime("%d/%m/%Y %H:%M") %>
+			<p><%= comment.user.email%></p>
+			<%if comment.user_id == current_user.id%>
+				<%= button_to "Editar", edit_post_comment_path(post_id: @post.id, id: comment.id), method: :get %>
+				<%= button_to "Eliminar", post_comment_path(post_id: @post.id, id: comment.id), method: :delete %>
+			<%end%>	
+		<hr>	
+	<%end%>
+<%else%>
+			<h3>Aun no se ha comentado este Post</h3>        	
+<%end%>

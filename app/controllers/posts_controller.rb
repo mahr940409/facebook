@@ -6,7 +6,6 @@ class PostsController < ApplicationController
 
   def index
     @post = Post.find(params[:post_id])
-    @comments = @post.comments
   end
 
 
@@ -16,6 +15,9 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @comments = @post.comments
+    @count = @post.likes.count
+    @like = Like.find_by(user_id: current_user.id, post_id: params[:id])
   end
 
   def destroy
