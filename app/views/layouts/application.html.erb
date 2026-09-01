@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Facebbok" %></title>
+    <title><%= content_for(:title) || "Facebook" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Facebbok">
@@ -11,6 +11,14 @@
 
     <%= yield :head %>
 
+    <nav class="navbar navbar-dark bg-primary shadow-sm mb-4">
+      <div class="container-fluid px-4">
+        <span class="navbar-brand mb-0 h1 fw-bold fs-3">Facebook</span>
+        <span class="navbar-text text-white fw-semibold">
+          👤 <%= current_user.email %>
+        </span>
+      </div>
+    </nav>
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
     <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
