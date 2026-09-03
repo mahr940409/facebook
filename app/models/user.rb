@@ -21,4 +21,19 @@ class User < ApplicationRecord
   def not_acept_request(friend)
     friend.destroy
   end
+
+  def update_password(params, current_user)
+    me = current_user
+    if params[:user][:current_password] != nil
+      if params[:user][:password] != nil
+        if params[:user][:password_confirmation] != nil
+          me.update_with_password({
+            current_password: params[:user][:current_password],
+            password: params[:user][:password],
+            password_confirmation: params[:user][:password_confirmation]
+          })
+        end
+      end
+    end
+  end
 end

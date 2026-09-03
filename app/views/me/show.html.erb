@@ -1,0 +1,41 @@
+<div class="card border-0 rounded-3 shadow-lg mx-auto p-3" style="max-width: 396px;">
+
+  <div class="text-center mb-4">
+    <h4>Nombre: <%= @me.name %></h4>
+    <h4>Apellido: <%= @me.lastname %></h4>
+  </div>
+
+  <%= form_with model: @me, url: users_me_path, method: :patch do |form| %>
+
+    <div class="mb-3">
+      <%= form.label :name, "Nombre", class: "form-label" %>
+      <%= form.text_field :name, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :lastname, "Apellido", class: "form-label" %>
+      <%= form.text_field :lastname, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :current_password, "Contraseña actual", class: "form-label" %>
+      <%= form.password_field :current_password, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :password, "Nueva contraseña", class: "form-label" %>
+      <%= form.password_field :password, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :password_confirmation, "Confirmar nueva contraseña", class: "form-label" %>
+      <%= form.password_field :password_confirmation, class: "form-control" %>
+    </div>
+
+    <div class="d-grid mb-3">
+      <%= form.submit "Editar usuario", class: "btn btn-outline-primary" %>
+    </div>
+
+  <% end %>
+
+</div>

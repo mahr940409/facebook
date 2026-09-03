@@ -13,10 +13,13 @@
 
     <nav class="navbar navbar-dark bg-primary shadow-sm mb-4">
       <div class="container-fluid px-4">
-        <span class="navbar-brand mb-0 h1 fw-bold fs-3">Facebook</span>
-        <span class="navbar-text text-white fw-semibold">
-          👤 <%= current_user.email %>
-        </span>
+        <%= link_to "Facebook", root_path, class: "navbar-brand mb-0 h1 fw-bold fs-3 text-decoration-none" %>
+        <% if current_user.present? %>
+          <span class="navbar-text text-white fw-semibold">
+            👤 <%= link_to current_user.email, users_me_path, class: "navbar-brand mb-0 h1 fw-bold fs-5 text-decoration-none" %>
+          </span>
+          <%= button_to "Cerrar Sesión", destroy_user_session_path, method: :delete%>
+        <% end %>
       </div>
     </nav>
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>

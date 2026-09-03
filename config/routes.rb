@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "me/index"
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -21,5 +22,10 @@ Rails.application.routes.draw do
     resource :likes, only: [] do
       get "/count", to: "likes#count"
     end
+  end
+  resource :users, only: [] do
+      resource :me,
+           controller: "me",
+           only: [ :show, :new, :create, :edit, :update ]
   end
 end

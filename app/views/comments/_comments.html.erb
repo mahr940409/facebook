@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="gap-12 justify-content-center py-5">
+        <%if comments.present? %>
+            <%comments.each do |comment|%>
+                <p><%= comment.text%></p>
+                <%= comment.created_at.strftime("%d/%m/%Y %H:%M") %>
+                <p><%= comment.user.email%></p>
+                <%if comment.user_id == current_user.id%>
+                    <%= button_to "Editar", edit_post_comment_path(post_id: @post.id, id: comment.id), method: :get, class:"btn btn-info" %>
+                    <%= button_to "Eliminar", post_comment_path(post_id: @post.id, id: comment.id), method: :delete, class:"btn btn-danger" %>
+                <%end%>		
+            <%end%>
+        <%else%>
+            <h3>Aun no se ha comentado este Post</h3>        	
+        <%end%>
+    </div>
+</div>

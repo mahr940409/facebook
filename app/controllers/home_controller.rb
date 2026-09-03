@@ -4,6 +4,7 @@ class HomeController < ApplicationController
                          .or(Friend.where(friend: current_user))
 
     @post = Post.new
+
     friends = Friend.where(status: "friends")
                 .where(sent_id: current_user.id)
                 .or(

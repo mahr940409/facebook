@@ -1,0 +1,7 @@
+<%@posts.each do |post|%>
+    <p><%= post.text%></p>
+    <%= post.created_at.strftime("%d/%m/%Y %H:%M") %>
+    <p>Publicacion realizada por: <%= post.user.email%></p>
+    <p><%= link_to "Ver o realizar un comentario", post_path(post), class:"btn btn-primary" %> </p>
+    <hr>
+<%end%>

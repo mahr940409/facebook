@@ -1,0 +1,14 @@
+<div class="container">
+  <%= form_with(model: post) do |form| %>
+    <div class="field">
+      <%= form.label :text, "Escribe tu post:" %><br>
+      <%= form.text_area :text, rows: 5, cols: 40, placeholder: "¡Comparte tus pensamientos aquí!" %>
+    </div>
+
+    <div class="actions">
+      <% text = post.persisted? ? "editar" : "Publicar" %>
+      <% class_css = post.persisted? ? "btn btn-success" : "btn btn-primary" %>    
+      <%= form.submit text, class: class_css %>
+    </div>
+  <% end %>
+ </div> 
