@@ -8,6 +8,11 @@
   <%= form_with model: @me, url: users_me_path, method: :patch do |form| %>
 
     <div class="mb-3">
+      <%= form.label :avatar, "Foto de perfil" %>
+      <%= form.file_field :avatar %>
+    </div>
+
+    <div class="mb-3">
       <%= form.label :name, "Nombre", class: "form-label" %>
       <%= form.text_field :name, class: "form-control" %>
     </div>

@@ -9,6 +9,9 @@ class MeController < ApplicationController
 
   def update
     me = current_user
+    if params[:user][:avatar].present?
+      me.avatar = params[:user][:avatar]
+    end
     if params[:user][:name].present? && params[:user][:lastname].present?
       me.name = params[:user][:name]
       me.lastname = params[:user][:lastname]

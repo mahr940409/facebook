@@ -1,7 +1,11 @@
 class PostsController < ApplicationController
   def create
-    current_user.posts.create(text: params[:post][:text])
-    redirect_to root_path
+    post = current_user.posts.new(text: params[:post][:text], image: params[:post][:image])
+    if post.save
+      redirect_to root_path, notice: "Post agregado correctamente"
+    else
+      redirect_to root_path, alert: "Post no agregado correctamente"
+    end
   end
 
   def index
@@ -36,8 +40,11 @@ class PostsController < ApplicationController
   end
 
   def update
-    post = Post.find(params[:post_id])
-    post.text = (params[:text])
+    post = Post.find(params[:id])
+    post.text = (params[:post][:text])
+    if params[:post][:image].present?
+      post.image = (params[:post][:image])
+    end
     post.save
     redirect_to post_path(post)
   end

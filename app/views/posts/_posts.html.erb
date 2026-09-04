@@ -1,4 +1,7 @@
 <%@posts.each do |post|%>
+    <%if post.image.attached?%>
+        <%=image_tag post.image, style: "width: 150px; height: 150px"%>
+    <%end%>
     <p><%= post.text%></p>
     <%= post.created_at.strftime("%d/%m/%Y %H:%M") %>
     <p>Publicacion realizada por: <%= post.user.email%></p>

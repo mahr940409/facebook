@@ -1,5 +1,11 @@
 <div class="container">
   <%= form_with(model: post) do |form| %>
+    
+    <div class="mb-3">
+      <%= form.label :image, "Imagen" %>
+      <%= form.file_field :image %>
+    </div>    
+    
     <div class="field">
       <%= form.label :text, "Escribe tu post:" %><br>
       <%= form.text_area :text, rows: 5, cols: 40, placeholder: "¡Comparte tus pensamientos aquí!" %>
