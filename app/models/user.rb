@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_many :comments
   has_many :posts
   has_one_attached :avatar
+  attr_accessor :remove_avatar
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -35,6 +36,16 @@ class User < ApplicationRecord
           })
         end
       end
+    end
+  end
+
+  before_save :purge_avatar_if_requested
+
+  private
+
+  def purge_avatar_if_requested
+    if remove_avatar == "1"
+      avatar.purge_later
     end
   end
 end

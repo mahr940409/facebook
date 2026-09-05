@@ -1,20 +1,37 @@
-<div class="container">
+<div class="container my-4">
   <%= form_with(model: post) do |form| %>
+
+    <div class="current-avatar">
+      <p>Imagen Post actual:</p>
+      <% if post.image.attached? %>
+        <%= image_tag post.image, style: "width: 100px; height: 100px" %>      
+        <div class="checkbox-field">
+          <%= form.check_box :remove_image %>
+          <%= form.label :remove_image, "Eliminar imagen actual" %>
+        </div>
+        <div class="mb-3">
+          <%= form.label :image, "Imagen", class: "form-label" %>
+          <%= form.file_field :image, class: "form-control" %>
+        </div>  
+      <%else%>
+        <div class="mb-3">
+          <%= form.label :image, "Imagen", class: "form-label" %>
+          <%= form.file_field :image, class: "form-control" %>
+        </div>  
+      <%end%> 
+    </div>
+    
+     
     
     <div class="mb-3">
-      <%= form.label :image, "Imagen" %>
-      <%= form.file_field :image %>
-    </div>    
-    
-    <div class="field">
-      <%= form.label :text, "Escribe tu post:" %><br>
-      <%= form.text_area :text, rows: 5, cols: 40, placeholder: "¡Comparte tus pensamientos aquí!" %>
+      <%= form.label :text, "Escribe tu post:", class: "form-label" %>
+      <%= form.text_area :text, rows: 5, placeholder: "¡Comparte tus pensamientos aquí!", class: "form-control" %>
     </div>
 
-    <div class="actions">
-      <% text = post.persisted? ? "editar" : "Publicar" %>
+    <div class="mb-3">
+      <% text = post.persisted? ? "Editar" : "Publicar" %>
       <% class_css = post.persisted? ? "btn btn-success" : "btn btn-primary" %>    
       <%= form.submit text, class: class_css %>
     </div>
   <% end %>
- </div> 
+</div>

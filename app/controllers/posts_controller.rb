@@ -45,6 +45,9 @@ class PostsController < ApplicationController
     if params[:post][:image].present?
       post.image = (params[:post][:image])
     end
+    if params[:post][:remove_image].present?
+      post.remove_image = params[:post][:remove_image]
+    end
     post.save
     redirect_to post_path(post)
   end

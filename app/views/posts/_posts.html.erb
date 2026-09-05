@@ -1,4 +1,5 @@
-<%@posts.each do |post|%>
+
+<%posts.each do |post|%>
     <%if post.image.attached?%>
         <%=image_tag post.image, style: "width: 150px; height: 150px"%>
     <%end%>

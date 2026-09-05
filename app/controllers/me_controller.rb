@@ -21,6 +21,9 @@ class MeController < ApplicationController
       me.name = me.name
     end
 
+    if params[:user][:remove_avatar].present?
+      me.remove_avatar = params[:user][:remove_avatar]
+    end
     me.update_password(params, current_user)
 
     me.save

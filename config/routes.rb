@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "profiles/show"
   get "me/index"
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -23,9 +24,15 @@ Rails.application.routes.draw do
       get "/count", to: "likes#count"
     end
   end
+
+  resources :users, only: [] do
+    resources :friends, only: [ :index ]
+  end
+
   resource :users, only: [] do
       resource :me,
            controller: "me",
            only: [ :show, :new, :create, :edit, :update ]
   end
+  resources :profiles, only: [ :show ]
 end

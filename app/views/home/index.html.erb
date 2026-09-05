@@ -18,12 +18,12 @@
       <h3>Crear Post</h3>
       <%= render "posts/form", post: @post %>
       <hr>
-      <%= render "posts/posts" %>
+      <%= render "posts/posts", posts: @posts %>
     </div>
 
     <div class="col-md-3">
       <h4>Quieres ver tus amigos</h4>
-        <%= link_to "Ver mis amigos", friends_path(user_id: current_user.id), class: "btn btn-primary" %>
+        <%= link_to "Ver mis amigos", friends_path(user_id: current_user), class: "btn btn-primary" %>
     </div>
 
   </div>

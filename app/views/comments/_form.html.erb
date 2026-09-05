@@ -2,9 +2,10 @@
 	<% url = comment.persisted? ?  post_comment_path(post_id: post.id, id: comment.id): post_comments_path(post_id: post.id) %>
 	<% method = comment.persisted? ?  :patch : :post %>
 	<%= form_with(url: url, method: method) do |form| %>
-		<div class="field">
-			<%= form.label :text, "Escribe tu comentario:" %><br>
-			<%= form.text_area :text, rows: 2, cols: 40, placeholder: "¡Comenta aqui!" %>
+		
+		<div class="mb-3">
+			<%= form.label :text, "Escribe tu comentario:", class: "form-label" %><br>
+			<%= form.text_area :text, value: comment.text, rows: 2, cols: 40, placeholder: "¡Comenta aqui!", class: "form-control" %>
 		</div>
 
 		<div class="actions">
