@@ -2,15 +2,16 @@ class FriendsController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @user = params[:user_id].present? ? User.find(params[:user_id]) : current_user
     @friends = Friend.includes(:sent, :request)
                      .where("request_id = :id OR sent_id = :id",
-                            id: current_user.id
+                            id: @user.id
                           )
 
     if params[:query].present?
       query = params[:query].strip
       @users = User.where("email LIKE :query", query: "%#{query}%")
-                    .where.not(id: current_user.id)
+                    .where.not(id: @user.id)
     else
       @users = User.none
     end

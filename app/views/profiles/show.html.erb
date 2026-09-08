@@ -24,7 +24,7 @@
 
     <div class="col-md-3">
       <h4>Quieres ver sus amigos</h4>
-        <%= link_to "Ver sus amigos", friends_path(user_id: @user.id), class: "btn btn-primary" %>
+        <%= link_to "Ver sus amigos", user_friends_path(user_id: @user.id), class: "btn btn-primary" %>
     </div>
 
   </div>
