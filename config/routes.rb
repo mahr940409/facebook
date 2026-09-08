@@ -34,5 +34,4 @@ Rails.application.routes.draw do
            controller: "me",
            only: [ :show, :new, :create, :edit, :update ]
   end
-  resources :profiles, only: [ :show ]
 end

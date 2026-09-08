@@ -19,7 +19,7 @@
         
       <%= button_to "Eliminar Amigo", friend_path(friend), method: :delete, class:"btn btn-danger"%>
       <% other_user = display_corrent_user_name(friend, user) %>
-      <%= link_to "Ver Perfil", profile_path(other_user), class:"btn btn-info"%>
+      <%= link_to "Ver Perfil", friend_path(user_id: current_user, id: other_user), class:"btn btn-info"%>
     <%end%>
     <hr>
   <% end %>

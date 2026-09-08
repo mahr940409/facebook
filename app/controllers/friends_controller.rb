@@ -38,4 +38,8 @@ class FriendsController < ApplicationController
     current_user.not_acept_request(friend)
     redirect_to friends_path
   end
+
+  def show
+    @user = User.find(params[:id])
+  end
 end
