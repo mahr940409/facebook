@@ -1,0 +1,20 @@
+<div class="card shadow-sm max-width-md mx-auto my-4">
+  <div class="card-body p-4">
+    <h2 class="h4 card-title mb-4 text-primary fw-bold">
+      Enviar nuevo mensaje a: <span class="text-dark"><%= @reciver.name %></span>
+    </h2>
+
+    <%= form_with(url: groupchats_path(sender: @sender.id), method: :post, local: true) do |f| %>
+      <%= f.hidden_field :reciver, value: @reciver.id %>
+
+      <div class="mb-3">
+        <%= f.label :text, "Mensaje", class: "form-label fw-semibold" %>
+        <%= f.text_area :text, rows: 3, class: "form-control", placeholder: "Escribe tu mensaje aquí...", required: true %>
+      </div>
+
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <%= f.submit "Enviar mensaje", class: "btn btn-primary px-4" %>
+      </div>
+    <% end %>
+  </div>
+</div>

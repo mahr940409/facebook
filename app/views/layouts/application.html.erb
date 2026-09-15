@@ -21,8 +21,12 @@
             <% else %>
               <span class="fs-5 text-white">👤</span>
             <% end %>
-
+    
             <%= link_to current_user.email, users_me_path, class: "navbar-brand mb-0 h1 fw-bold fs-5 text-white text-decoration-none" %>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <span class="fs-5 text-white">💬</span>
+            <%= link_to "Mensajes", groupchats_path, class: "nav-link text-white m-0" %>            
           </div>
           <%= button_to "Cerrar Sesión", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
         <% end %>

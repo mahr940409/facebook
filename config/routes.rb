@@ -34,4 +34,8 @@ Rails.application.routes.draw do
            controller: "me",
            only: [ :show, :new, :create, :edit, :update ]
   end
+
+  resources :groupchats, only: [ :new, :show, :create, :destroy, :index ] do
+    resources :messages, only: [ :index, :show, :create, :edit, :update, :destroy ]
+  end
 end

@@ -1,24 +1,25 @@
 <div class="container">
   <h3>Solicitudes de amistad</h3>
   <hr>
-  <% @friends.each do |friend| %>
+  <% friends.each do |friend| %>
+    <% display_corrent_user_name = display_corrent_user_name(friend, user) %>
     <%if friend.status == "requested" && friend.sent_id != user.id%>
       <h4> solicitud recibida de 
-        <%if display_corrent_user_name(friend, user).avatar.attached? %>
-          <%=image_tag display_corrent_user_name(friend, user).avatar, class: "rounded circle", style: "width: 50px; height: 50px"%>
+        <%if display_corrent_user_name.avatar.attached? %>
+          <%=image_tag display_corrent_user_name.avatar, class: "rounded circle", style: "width: 50px; height: 50px"%>
       <%end%>
-        <%= display_corrent_user_name(friend, user).email %>
+        <%= display_corrent_user_name.name || display_corrent_user_name.email %> 
       </h4>
       <%= button_to "Aceptar", friend_path(id: friend), method: :put, class:"btn btn-success" %>
       <%= button_to "Rechazar", friend_path(id: friend), method: :delete, class:"btn btn-danger" %>
     <%elsif friend.status == "friends"%>
-      <%if display_corrent_user_name(friend, user).avatar.attached? %>
-          <%=image_tag display_corrent_user_name(friend, user).avatar, class: "rounded circle", style: "width: 30px; height: 30px"%>
+      <%if display_corrent_user_name.avatar.attached? %>
+          <%=image_tag display_corrent_user_name.avatar, class: "rounded circle", style: "width: 30px; height: 30px"%>
       <%end%>
-      <h4>friend email <%= display_corrent_user_name(friend, user).email %></h4>
-        
+      <h4>friend: <%= display_corrent_user_name.name || display_corrent_user_name.email %></h4>
+      
       <%= button_to "Eliminar Amigo", friend_path(friend), method: :delete, class:"btn btn-danger"%>
-      <% other_user = display_corrent_user_name(friend, user) %>
+      <% other_user = display_corrent_user_name %>
       <%= link_to "Ver Perfil", friend_path(user_id: current_user, id: other_user), class:"btn btn-info"%>
     <%end%>
     <hr>
