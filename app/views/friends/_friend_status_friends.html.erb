@@ -1,0 +1,4 @@
+<%if friend.status == "friends"%>
+    <%= other.display_username %>   
+    <%= link_to "Ver Perfil", friend_path(id: other), class:"btn btn-info"%>
+<%end%>

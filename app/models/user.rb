@@ -11,8 +11,14 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  before_save :purge_avatar_if_requested
+
   def add_friend(friend)
     Friend.create(request_id: friend.id, sent_id: self.id)
+  end
+
+  def display_username
+    self.name || self.email
   end
 
   def acept_request(friend)
@@ -38,8 +44,6 @@ class User < ApplicationRecord
       end
     end
   end
-
-  before_save :purge_avatar_if_requested
 
   def send_message(reciver:, text:)
     groupchat = Groupchat.where(sender_id: self.id, reciver_id: reciver.id)

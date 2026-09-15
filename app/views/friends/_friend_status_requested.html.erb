@@ -1,0 +1,6 @@
+<%if friend.status == "requested" && friend.sent_id != user.id%>
+    <h4> solicitud recibida de </h4>
+    <%= other.display_username %>      
+    <%= button_to "Aceptar", friend_path(id: friend), method: :put, class:"btn btn-success" %>
+    <%= button_to "Rechazar", friend_path(id: friend), method: :delete, class:"btn btn-danger" %>
+<%end%>

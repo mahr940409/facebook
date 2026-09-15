@@ -3,7 +3,7 @@
     
     <div class="col-md-3">
       <h4>
-          Perfil de:<%=@user.name%>
+          Perfil de:<%=@user.email.split("@").first%>
       </h4>
       <div>
         <%if @user.avatar.attached?%>
