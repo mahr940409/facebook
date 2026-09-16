@@ -1,4 +1,9 @@
-<%if friend.status == "friends"%>
-    <%= other.display_username %>   
-    <%= link_to "Ver Perfil", friend_path(id: other), class:"btn btn-info"%>
-<%end%>
+<h4>My Friends</h4>
+<hr>
+<div class="container">  
+  <% friends.each do |friend_user| %>
+    
+    <%= render partial: "display_user_avatar", locals: {user: friend_user} %>
+    <%= render partial: "friend", locals: {friend: friend_user} %>    
+  <% end %>
+</div>

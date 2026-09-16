@@ -1,22 +1,10 @@
-<div class="container">
-  <h3>Solicitudes de amistad</h3>
-  <hr>
-  <% friends.each do |friend| %>
-    <% display_corrent_user_name = display_corrent_user_name(friend, user) %>
-    <%if friend.status == "requested" && friend.sent_id != user.id%>
-      <h4> solicitud recibida de </h4>
-      <%= render partial: "display_user_avatar", locals: {user: display_corrent_user_name} %>
-      
-      <%= display_corrent_user_name.display_username %>
-      <%= button_to "Aceptar", friend_path(id: friend), method: :put, class:"btn btn-success" %>
-      <%= button_to "Rechazar", friend_path(id: friend), method: :delete, class:"btn btn-danger" %>
 
-    <%elsif friend.status == "friends"%>
-      <%= render partial: "display_user_avatar", locals: {user: display_corrent_user_name} %>
-      <h4>friend: <%= display_corrent_user_name.display_username %></h4>            
-            
-      <%= link_to "Ver Perfil", friend_path(id: display_corrent_user_name), class:"btn btn-info"%>
-    <%end%>
-    <hr>
+<h3>Solicitudes de amistad</h3>
+  <hr>
+<div class="container">  
+  <% requests.each do |request_user| %>
+    
+    <%= render partial: "display_user_avatar", locals: {user: request_user} %>
+    <%= render partial: "friend_status_requested", locals: {friend: request_user} %>    
   <% end %>
 </div>

@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_many :messages
   has_many :groupchats
   has_one_attached :avatar
-  attr_accessor :remove_avatar
+  attr_accessor :remove_avatar, :mutual
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
