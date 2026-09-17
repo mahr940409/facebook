@@ -8,10 +8,10 @@ class FriendsController < ApplicationController
     search(params[:query])
 
     friends_status_friends = friends.where(status: "friends")
-    friends_status_requested = friends.where(status: "requested")
+    @friends_status_requested = friends.where(status: "requested")
     @friends = map_other_user_from_friend_collection(friends_status_friends, @user)
 
-    @requests = map_other_user_from_friend_collection(friends_status_requested, @user)
+    @requests = map_other_user_from_friend_collection(@friends_status_requested, @user)
   end
 
   def create
