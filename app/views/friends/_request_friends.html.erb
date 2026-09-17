@@ -2,6 +2,7 @@
 <h3>Solicitudes de amistad</h3>
   <hr>
 <div class="container">  
+  
   <% requests.each do |request_user| %>
     
     <%= render partial: "display_user_avatar", locals: {user: request_user} %>

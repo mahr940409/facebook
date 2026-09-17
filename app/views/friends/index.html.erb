@@ -18,7 +18,9 @@
 <%if @user == current_user%>
   <div class="container">
     <h2>My Requests</h2>
+    
     <hr>
+    
     <%= render "request_friends", requests: @requests, user: @user%>
   </div>
 <%end%>

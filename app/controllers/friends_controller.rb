@@ -3,31 +3,15 @@ class FriendsController < ApplicationController
 
   def index
     @user = params[:user_id].present? ? User.find(params[:user_id]) : current_user
-    friends = Friend.includes(:sent, :request)
-                     .where("request_id = :id OR sent_id = :id",
-                            id: @user.id
-                          )
+    friends = Friend.includes(:sent, :request).where("request_id = :id OR sent_id = :id", id: @user.id)
+
     search(params[:query])
 
-    friends = friends.where(status: "friends")
-    requests = friends.where(status: "requested")
+    friends_status_friends = friends.where(status: "friends")
+    friends_status_requested = friends.where(status: "requested")
+    @friends = map_other_user_from_friend_collection(friends_status_friends, @user)
 
-    @friends = map_other_user_from_friend_collection(friends, @user)
-    @requests = map_other_user_from_friend_collection(requests, @user)
-
-    if params[:user_id].present?
-      current_user_friends = Friend.where(
-        "(request_id = :id OR sent_id = :id)
-         AND status = :status", id: current_user.id, status: "friends")
-
-      current_user_friend_user_objs = map_other_user_from_friend_collection(current_user_friends, current_user)
-
-      @friends.map do |user|
-        if current_user_friend_user_objs.include?(user)
-          user.mutual = true
-        end
-      end
-    end
+    @requests = map_other_user_from_friend_collection(friends_status_requested, @user)
   end
 
   def create
@@ -67,7 +51,8 @@ class FriendsController < ApplicationController
   end
 
   def map_other_user_from_friend_collection(friends, user)
-    friends.map do |friend|
+    new_hash = friends.clone
+    new_hash.map do |friend|
       if friend.sent_id == user.id
         friend.request
       else
