@@ -2,24 +2,32 @@ class FriendsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @user = params[:user_id].present? ? User.find(params[:user_id]) : current_user
-    friends = Friend.includes(:sent, :request).where("request_id = :id OR sent_id = :id", id: @user.id)
+    # @user = params[:user_id].present? ? User.find(params[:user_id]) : current_user
+    # friends = Friend.includes(:sent, :request).where("request_id = :id OR sent_id = :id", id: @user.id)
+
+    # search(params[:query])
+
+    # friends_status_friends = friends.where(status: "friends")
+    # @friends_status_requested = friends.where(status: "requested")
+
+
+    # @requests = User.map_other_user_from_friend_collection(@friends_status_requested, @user)
+
+    # if params[:user_id].present?
+    #   @comun_friends = User.mutual_friends(current_user, User.find(params[:user_id]))
+    # else
+    #   @comun_friends = User.map_other_user_from_friend_collection(friends_status_friends, @user)
+    # end
+
+    # #--
+    # #
+    user = User.find(params[:user_id])
+    friends = Friend.includes(:sent, :request).where("request_id = :id OR sent_id = :id", id: user.id)
 
     search(params[:query])
-
-    friends_status_friends = friends.where(status: "friends")
     @friends_status_requested = friends.where(status: "requested")
-
-
-    @requests = User.map_other_user_from_friend_collection(@friends_status_requested, @user)
-
-    if params[:user_id].present?
-      @comun_friends = User.mutual_friends(current_user, User.find(params[:user_id]))
-    else
-      @comun_friends = User.map_other_user_from_friend_collection(friends_status_friends, @user)
-    end
-
-    #--
+    binding.pry
+    @friends = ::Services::UserFriendMapper.new(current_user, user).friends
   end
 
   def create
