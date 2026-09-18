@@ -15,13 +15,12 @@
       <%= button_to "Añadir amigo", friends_path(id: user.id), method: :post, class:"btn btn-success"%>
   <%end%>
 </div>
+
 <%@friends_status_requested.each do |request|%>
-  <%if request.request == current_user%>
+  <%if request.request_id == current_user.id%>
     <div class="container">
       <h2>My Requests</h2>
-      
       <hr>
-      
       <%= render "request_friends", requests: @requests, user: @user%>
     </div>
   <%end%>  
@@ -34,5 +33,5 @@
   <%else%>
     <h2>Los amigos de <%= @user.name || @user.email%></h2>
   <%end%> 
-  <%= render "friend_status_friends", friends: @friends %>
+<%= render "friend_status_friends", comun_friends: @comun_friends, user: @user %> 
 </div>

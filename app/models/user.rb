@@ -21,12 +21,12 @@ class User < ApplicationRecord
     self.name || self.email
   end
 
-  def acept_request(friend)
+  def accept_request(friend)
     friend.status = "friends"
     friend.save
   end
 
-  def not_acept_request(friend)
+  def not_accept_request(friend)
     friend.destroy
   end
 
@@ -64,6 +64,38 @@ class User < ApplicationRecord
   def purge_avatar_if_requested
     if remove_avatar == "1"
       avatar.purge_later
+    end
+  end
+
+
+  def self.mutual_friends(user1, user2)
+    friends_user1 = Friend.includes(:sent, :request).where("(request_id = :id OR sent_id = :id) AND status = :status", id: user1.id, status: :friends)
+    friends_user2 = Friend.includes(:sent, :request).where("(request_id = :id OR sent_id = :id) AND status = :status", id: user2.id, status: :friends)
+
+
+    frineds_user1 = map_other_user_from_friend_collection(friends_user1, user1)
+    frineds_user2 = map_other_user_from_friend_collection(friends_user2, user2)
+
+    mutual_friends = frineds_user2.map do |mutual|
+      if frineds_user1.include?(mutual)
+        mutual.mutual = true
+        mutual
+      else
+        mutual.mutual = false
+        mutual
+      end
+    end
+  end
+
+
+  def self.map_other_user_from_friend_collection(friends, user)
+    new_hash = friends.clone
+    new_hash.map do |friend|
+      if friend.sent_id == user.id
+        friend.request
+      else
+        friend.sent
+      end
     end
   end
 end

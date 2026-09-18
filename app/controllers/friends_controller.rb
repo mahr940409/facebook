@@ -9,9 +9,17 @@ class FriendsController < ApplicationController
 
     friends_status_friends = friends.where(status: "friends")
     @friends_status_requested = friends.where(status: "requested")
-    @friends = map_other_user_from_friend_collection(friends_status_friends, @user)
 
-    @requests = map_other_user_from_friend_collection(@friends_status_requested, @user)
+
+    @requests = User.map_other_user_from_friend_collection(@friends_status_requested, @user)
+
+    if params[:user_id].present?
+      @comun_friends = User.mutual_friends(current_user, User.find(params[:user_id]))
+    else
+      @comun_friends = User.map_other_user_from_friend_collection(friends_status_friends, @user)
+    end
+
+    #--
   end
 
   def create
@@ -25,14 +33,14 @@ class FriendsController < ApplicationController
   end
 
   def update
-    friend = Friend.find(params[:id])
-    current_user.acept_request(friend)
+    obj_friend = Friend.find_by(sent_id: (params[:id]), request_id: current_user.id, status: "requested")
+    current_user.accept_request(obj_friend)
     redirect_to friends_path
   end
 
   def destroy
-    friend = Friend.find(params[:id])
-    current_user.not_acept_request(friend)
+    obj_friend = Friend.find_by(sent_id: (params[:id]), request_id: current_user.id, status: "requested")
+    current_user.not_accept_request(obj_friend)
     redirect_to friends_path
   end
 
@@ -47,17 +55,6 @@ class FriendsController < ApplicationController
                     .where.not(id: @user.id)
     else
       @users = User.none
-    end
-  end
-
-  def map_other_user_from_friend_collection(friends, user)
-    new_hash = friends.clone
-    new_hash.map do |friend|
-      if friend.sent_id == user.id
-        friend.request
-      else
-        friend.sent
-      end
     end
   end
 end
