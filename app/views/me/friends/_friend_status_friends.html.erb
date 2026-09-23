@@ -1,12 +1,12 @@
-<h4>My Friends</h4>
-
-  <%comun_friends.each do |comun_friend|%>
-    <%= render partial: "me/friends/display_user_avatar", locals: {user: comun_friend} %>
-    <%= render partial: "me/friends/friend", locals: {friend: comun_friend} %>
 
 
-    <%= button_to "Eliminar amigo", friend_path(id: comun_friend.sent.id), method: :delete, class:"btn btn-danger"%>
+<%comun_friends.each do |comun_friend|%>
 
-    
-  <%end%>
-</div>
+  <%= render partial: "me/friends/display_user_avatar", locals: {user: comun_friend} %>
+  <%= render partial: "me/friends/friend", locals: {friend: comun_friend} %>
+
+  
+  <%= button_to "Eliminar amigo", friend_path(id: comun_friend.id), method: :delete, class:"btn btn-danger"%>
+
+  
+<%end%>

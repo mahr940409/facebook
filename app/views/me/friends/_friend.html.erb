@@ -1,9 +1,11 @@
 <%if friend.sent == current_user%>
 
    <%=friend.request.email%>
+   <%= link_to "Ver Perfil", friend_path(id: friend.request.id), class:"btn btn-info"%>
 <%else%>
     <%=friend.sent.email%>
+    <%= link_to "Ver Perfil", friend_path(id: friend.sent.id), class:"btn btn-info"%>
 <%end%>
 <br>
-<%= link_to "Ver Perfil", friend_path(id: friend.sent.id), class:"btn btn-info"%>
+
 <br>

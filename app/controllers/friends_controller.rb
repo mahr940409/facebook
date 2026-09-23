@@ -27,12 +27,8 @@ class FriendsController < ApplicationController
   end
 
   def destroy
-    if params[:friend_obj_id].present?
-      Friend.find(params[:friend_obj_id]).destroy
-    else
-      obj_friend = Friend.find_by(sent_id: (params[:id]), request_id: current_user.id, status: "requested")
-      current_user.not_accept_request(obj_friend)
-    end
+    obj_friend= Friend.find(params[:id]).destroy
+    current_user.not_accept_request(obj_friend)
     redirect_to friends_path
   end
 
