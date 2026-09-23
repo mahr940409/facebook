@@ -1,0 +1,10 @@
+
+<%if friend.sent.id != current_user.id%>
+	<%if friend.sent.name.present?%>
+		<%= friend.sent.display_username %>
+	<%else%>
+		<%= friend.sent.email%>
+	<%end%> 
+	<%= button_to "Aceptar", friend_path(id: friend.sent.id), method: :put, class:"btn btn-success" %>
+	<%= button_to "Rechazar", friend_path(id: friend.sent.id), method: :delete, class:"btn btn-danger" %>
+<%end%>

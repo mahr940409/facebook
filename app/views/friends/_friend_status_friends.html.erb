@@ -5,13 +5,11 @@
     <%= render partial: "friend", locals: {friend: comun_friend} %>
 
     <%if comun_friend.mutual == true%>
-      <h4>amigo en comun</h4>
+      
+      <h4>Amigo en comun</h4><%=  button_to "Eliminar amigo", friend_path(id: comun_friend.other_user, friend_obj_id: comun_friend.friend_obj_id), method: :delete, class:"btn btn-danger"%>
     <%else%>
-      <%if @user == current_user%>
-        <%= button_to "Eliminar amigo", friend_path(id: comun_friend.id), method: :delete, class:"btn btn-danger"%>
-      <%else%>
-        <%= button_to "Añadir amigo", friends_path(id: comun_friend.id), method: :post, class:"btn btn-success"%>
-      <%end%>  
+      <%= button_to "Añadir amigo", friends_path(id: comun_friend.user_id), method: :post, class:"btn btn-success"%> 
+      
     <%end%>
     
   <%end%>

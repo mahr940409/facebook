@@ -1,0 +1,36 @@
+
+<div class="search container">
+  <%= form_with url: me_friends_path, method: :get, local: true do |form|%>
+    <%= form.text_field :query, 
+                          value: params[:query],
+                          placeholder: "Buscar...", 
+                          class: "search-input" %>
+    <%= form.submit "Search", class: "search-button"%>
+  <%end%>
+</div>
+<hr>
+<div class="list container">
+  <%@users.each do |user|%>
+      <%= user.email%>
+      <%= button_to "Añadir amigo", friends_path(id: user.id), method: :post, class:"btn btn-success"%>
+  <%end%>
+  
+</div>
+
+<%@friends_status_requested.each do |request|%>
+  <%if request.request_id == current_user.id%>
+    <div class="container">
+      <h2>My Requests</h2>
+      <hr>
+      <%= render "me/friends/request_friends", requests: @friends_status_requested%>
+    </div>
+  <%end%>  
+<%end%>
+
+<div class="container">
+
+    <h2>My Friends</h2>
+    <hr>
+  
+<%= render "me/friends/friend_status_friends", comun_friends: @friends %> 
+</div>

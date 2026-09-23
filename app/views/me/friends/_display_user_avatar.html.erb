@@ -1,0 +1,5 @@
+<%if user.sent != current_user%>
+  <%if user.sent.avatar.attached? %>
+    <%=image_tag user.sent.avatar, class: "rounded circle", style: "width: 50px; height: 50px"%>
+  <%end%>
+<%end%> 

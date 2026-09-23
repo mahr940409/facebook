@@ -11,27 +11,12 @@
 <hr>
 <div class="list container">
   <%@users.each do |user|%>
-      <%=user.email%>
+      <%= user.email%>
       <%= button_to "Añadir amigo", friends_path(id: user.id), method: :post, class:"btn btn-success"%>
   <%end%>
 </div>
 
-<%@friends_status_requested.each do |request|%>
-  <%if request.request_id == current_user.id%>
-    <div class="container">
-      <h2>My Requests</h2>
-      <hr>
-      <%= render "request_friends", requests: @requests, user: @user%>
-    </div>
-  <%end%>  
-<%end%>
-
 <div class="container">
-  <%if @user == current_user%>
-    <h2>My Friends</h2>
-    <hr>
-  <%else%>
-    <h2>Los amigos de <%= @user.name || @user.email%></h2>
-  <%end%> 
-<%= render "friend_status_friends", comun_friends: @comun_friends, user: @user %> 
+    <h2>Los amigos de <%= @user.name  %></h2>
+<%= render "friend_status_friends", comun_friends: @friends %> 
 </div>

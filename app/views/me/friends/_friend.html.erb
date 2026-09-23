@@ -1,0 +1,9 @@
+<%if friend.sent == current_user%>
+
+   <%=friend.request.email%>
+<%else%>
+    <%=friend.sent.email%>
+<%end%>
+<br>
+<%= link_to "Ver Perfil", friend_path(id: friend.sent.id), class:"btn btn-info"%>
+<br>

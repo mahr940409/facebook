@@ -2,32 +2,12 @@ class FriendsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    # @user = params[:user_id].present? ? User.find(params[:user_id]) : current_user
-    # friends = Friend.includes(:sent, :request).where("request_id = :id OR sent_id = :id", id: @user.id)
-
-    # search(params[:query])
-
-    # friends_status_friends = friends.where(status: "friends")
-    # @friends_status_requested = friends.where(status: "requested")
-
-
-    # @requests = User.map_other_user_from_friend_collection(@friends_status_requested, @user)
-
-    # if params[:user_id].present?
-    #   @comun_friends = User.mutual_friends(current_user, User.find(params[:user_id]))
-    # else
-    #   @comun_friends = User.map_other_user_from_friend_collection(friends_status_friends, @user)
-    # end
-
-    # #--
-    # #
-    user = User.find(params[:user_id])
-    friends = Friend.includes(:sent, :request).where("request_id = :id OR sent_id = :id", id: user.id)
+    @user = User.find(params[:user_id])
+    friends = Friend.includes(:sent, :request).where("request_id = :id OR sent_id = :id", id: @user.id)
 
     search(params[:query])
     @friends_status_requested = friends.where(status: "requested")
-    binding.pry
-    @friends = ::Services::UserFriendMapper.new(current_user, user).friends
+    @friends = UserFriendMapper.new(current_user, @user).friends
   end
 
   def create
@@ -41,14 +21,18 @@ class FriendsController < ApplicationController
   end
 
   def update
-    obj_friend = Friend.find_by(sent_id: (params[:id]), request_id: current_user.id, status: "requested")
+    obj_friend = Friend.find_by(sent_id: (params[:id]), request_id: current_user, status: "requested")
     current_user.accept_request(obj_friend)
     redirect_to friends_path
   end
 
   def destroy
-    obj_friend = Friend.find_by(sent_id: (params[:id]), request_id: current_user.id, status: "requested")
-    current_user.not_accept_request(obj_friend)
+    if params[:friend_obj_id].present?
+      Friend.find(params[:friend_obj_id]).destroy
+    else
+      obj_friend = Friend.find_by(sent_id: (params[:id]), request_id: current_user.id, status: "requested")
+      current_user.not_accept_request(obj_friend)
+    end
     redirect_to friends_path
   end
 

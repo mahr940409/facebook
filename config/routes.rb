@@ -35,6 +35,10 @@ Rails.application.routes.draw do
            only: [ :show, :new, :create, :edit, :update ]
   end
 
+  resource :me, only: [], module: "me" do
+    resources :friends, only: [ :index ]
+  end
+
   resources :groupchats, only: [ :new, :show, :create, :destroy, :index ] do
     resources :messages, only: [ :index, :show, :create, :edit, :update, :destroy ]
   end
