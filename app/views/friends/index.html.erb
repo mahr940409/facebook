@@ -1,22 +1,9 @@
 
-<div class="search container">
-  <%= form_with url: friends_path, method: :get, local: true do |form|%>
-    <%= form.text_field :query, 
-                          value: params[:query],
-                          placeholder: "Buscar...", 
-                          class: "search-input" %>
-    <%= form.submit "Search", class: "search-button"%>
-  <%end%>
-</div>
-<hr>
-<div class="list container">
-  <%@users.each do |user|%>
-      <%= user.email%>
-      <%= button_to "Añadir amigo", friends_path(id: user.id), method: :post, class:"btn btn-success"%>
-  <%end%>
-</div>
 
-<div class="container">
-    <h2>Los amigos de <%= @user.name  %></h2>
-<%= render "friend_status_friends", comun_friends: @friends %> 
+<div class="container pb-5">
+  <h2 class="h4 mb-4">
+    Los amigos de <%= @user.name %>
+  </h2>
+
+  <%= render "friend_status_friends", comun_friends: @friends %>
 </div>

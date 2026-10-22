@@ -1,11 +1,30 @@
+<div class="d-flex flex-column gap-3">
+  <% posts.each do |post| %>
+    <div class="card border-0 shadow-sm">
+      <% if post.image.attached? %>
+        <%= image_tag post.image,
+            class: "card-img-top object-fit-cover",
+            style: "max-height: 300px;",
+            alt: "Imagen de la publicación" %>
+      <% end %>
 
-<%posts.each do |post|%>
-    <%if post.image.attached?%>
-        <%=image_tag post.image, style: "width: 150px; height: 150px"%>
-    <%end%>
-    <p><%= post.text%></p>
-    <%= post.created_at.strftime("%d/%m/%Y %H:%M") %>
-    <p>Publicacion realizada por: <%= post.user.email%></p>
-    <p><%= link_to "Ver o realizar un comentario", post_path(post), class:"btn btn-primary" %> </p>
-    <hr>
-<%end%>
+      <div class="card-body">
+        <div class="d-flex flex-wrap justify-content-between gap-2 mb-3">
+          <span class="fw-semibold text-break">
+            <%= post.user.email %>
+          </span>
+
+          <small class="text-muted">
+            <%= post.created_at.strftime("%d/%m/%Y %H:%M") %>
+          </small>
+        </div>
+
+        <p class="card-text"><%= post.text %></p>
+
+        <%= link_to "Ver o realizar un comentario",
+            post_path(post),
+            class: "btn btn-outline-primary btn-sm" %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,17 +1,29 @@
-<div class="container">
-	<% url = comment.persisted? ?  post_comment_path(post_id: post.id, id: comment.id): post_comments_path(post_id: post.id) %>
-	<% method = comment.persisted? ?  :patch : :post %>
-	<%= form_with(url: url, method: method) do |form| %>
-		
-		<div class="mb-3">
-			<%= form.label :text, "Escribe tu comentario:", class: "form-label" %><br>
-			<%= form.text_area :text, value: comment.text, rows: 2, cols: 40, placeholder: "¡Comenta aqui!", class: "form-control" %>
-		</div>
+<div class="container py-4">
+  <div class="card border-0 shadow-sm">
+    <div class="card-body">
+      <% editing = comment.persisted? %>
+      <% url = editing ? post_comment_path(post_id: post.id, id: comment.id) : post_comments_path(post_id: post.id) %>
+      <% method = editing ? :patch : :post %>
 
-		<div class="actions">
-			<%text = comment.persisted? ? "editar" : "publicar" %>
-			<%class_css = comment.persisted? ? "btn btn-success" : "btn btn-primary"%>
-			<%= form.submit text, class: class_css %>
-		</div>
-	<%end%>
+      <h5 class="card-title mb-3">
+        <%= editing ? "Editar comentario" : "Escribir un comentario" %>
+      </h5>
+
+      <%= form_with(url: url, method: method) do |form| %>
+        <div class="mb-3">
+          <%= form.label :text, "Tu comentario", class: "form-label" %>
+          <%= form.text_area :text,
+              value: comment.text,
+              rows: 3,
+              placeholder: "¡Comenta aquí!",
+              class: "form-control" %>
+        </div>
+
+        <%= form.submit(
+          editing ? "Guardar cambios" : "Publicar comentario",
+          class: editing ? "btn btn-success" : "btn btn-primary"
+        ) %>
+      <% end %>
+    </div>
+  </div>
 </div>

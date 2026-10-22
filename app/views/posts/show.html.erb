@@ -1,42 +1,51 @@
+<div class="container py-4" style="max-width: 800px;">
+  <div class="card border-0 shadow-sm overflow-hidden">
+    <% if @post.image.attached? %>
+      <%= image_tag @post.image,
+          class: "card-img-top object-fit-cover",
+          style: "max-height: 400px;",
+          alt: "Imagen de la publicación" %>
+    <% end %>
 
-<div class="container d-flex flex-column gap-2">
-	<h2 class="mb-0">POST:</h2>
-	<h3 class="mb-0"><%=@post.text%></h3>
-	<%if @post.image.attached?%>
-    <%= image_tag @post.image, style: "width: 200px; height: 200px"%>
-  <%end%>
+    <div class="card-body p-4">
+      <h1 class="h5 text-muted mb-3">Publicación</h1>
+      <p class="card-text fs-5 mb-4"><%= @post.text %></p>
+
+      <div class="d-flex flex-wrap align-items-center gap-2">
+        <span class="badge text-bg-light border me-2">
+          Likes: <%= @count %>
+        </span>
+
+        <% if @like.present? %>
+          <%= button_to "Quitar like",
+              post_like_path(post_id: @post.id, id: @like.id),
+              method: :delete,
+              class: "btn btn-outline-danger btn-sm" %>
+        <% else %>
+          <%= button_to "Me gusta",
+              post_likes_path(post_id: @post.id),
+              method: :post,
+              class: "btn btn-outline-primary btn-sm" %>
+        <% end %>
+
+        <% if @post.user_id == current_user.id %>
+          <%= form_with(url: post_path(@post.id), method: :delete) do |form| %>
+            <%= form.submit "Eliminar", class: "btn btn-outline-danger btn-sm" %>
+          <% end %>
+
+          <%= form_with(url: edit_post_path(@post.id), method: :get) do |form| %>
+            <%= form.submit "Editar", class: "btn btn-outline-secondary btn-sm" %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <%= render "comments/form", comment: @comment, post: @post %>
+  </div>
+
+  <div class="mt-4">
+    <%= render "comments/comments", comments: @comments %>
+  </div>
 </div>
- 
-<div class="container">
- 
-	<div class="d-flex gap-2 justify-content-center py-5">
-		<h5> Likes <%=@count%></h5>
-		<%if @like.present?%>	
-		<%= button_to "dislike", post_like_path(post_id: @post.id, id: @like.id), method: :delete, class:"btn btn-danger" %>
-	<%else%>	
-		<%= button_to "like", post_likes_path(post_id: @post.id), method: :post, class:"btn btn-success"%>
-	<%end%>	
-
-
-
-	<%if @post.user_id == current_user.id%>
-		<%= form_with(url: post_path(@post.id) , method: :delete) do |form| %>
-			<div class="actions">
-				<%= form.submit "Eliminar", class:"btn btn-danger"%>
-			</div>
-		<%end%>
-		<%= form_with(url: edit_post_path(@post.id) , method: :get) do |form| %>
-			<div class="actions">
-				<%= form.submit "Editar", class:"btn btn-info" %>
-			</div>
-		<%end%>	
-	<%end%>
-	</div>
-	
-</div>
-
-<hr>
-	<%=render "comments/form", comment: @comment, post: @post%>
-<hr>
-
-<%= render "comments/comments", comments: @comments%>

@@ -1,8 +1,9 @@
-<% if friend.other_user.name.present?%>
-    <%=friend.other_user.name%>
-<%else%>
-    <%=friend.other_user.email%>
-<%end%>
-<br>
-<%= link_to "Ver Perfil", friend_path(id: friend.other_user.id), class:"btn btn-info"%>
-<br>
+<div>
+  <div class="fw-semibold mb-2">
+    <%= friend.other_user.name.presence || friend.other_user.email %>
+  </div>
+
+  <%= link_to "Ver perfil",
+      friend_path(id: friend.other_user.id),
+      class: "btn btn-outline-secondary btn-sm" %>
+</div>

@@ -1,10 +1,23 @@
+<% if friend.sent.id != current_user.id %>
+  <div class="d-flex flex-column flex-sm-row align-items-sm-center gap-3">
+    <span class="fw-semibold">
+      <% if friend.sent.name.present? %>
+        <%= friend.sent.display_username %>
+      <% else %>
+        <%= friend.sent.email %>
+      <% end %>
+    </span>
 
-<%if friend.sent.id != current_user.id%>
-	<%if friend.sent.name.present?%>
-		<%= friend.sent.display_username %>
-	<%else%>
-		<%= friend.sent.email%>
-	<%end%> 
-	<%= button_to "Aceptar", friend_path(id: friend.sent.id), method: :put, class:"btn btn-success" %>
-	<%= button_to "Rechazar", friend_path(id: friend.sent.id), method: :delete, class:"btn btn-danger" %>
-<%end%>
+    <div class="d-flex gap-2">
+      <%= button_to "Aceptar",
+          friend_path(id: friend.sent.id),
+          method: :put,
+          class: "btn btn-success btn-sm" %>
+
+      <%= button_to "Rechazar",
+          friend_path(id: friend.sent.id),
+          method: :delete,
+          class: "btn btn-outline-danger btn-sm" %>
+    </div>
+  </div>
+<% end %>

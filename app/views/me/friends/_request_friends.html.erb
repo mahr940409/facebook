@@ -1,11 +1,21 @@
+<div class="container py-4">
+  <h3 class="h5 mb-3">Solicitudes de amistad</h3>
 
-<h3>Solicitudes de amistad</h3>
-  <hr>
-<div class="container">  
-  
-  <% requests.each do |request_user| %>
-    
-    <%= render partial: "me/friends/display_user_avatar", locals: {user: request_user} %>
-    <%= render partial: "me/friends/friend_status_requested", locals: {friend: request_user} %>    
-  <% end %>
+  <div class="d-flex flex-column gap-3">
+    <% requests.each do |request_user| %>
+      <div class="card border-0 shadow-sm">
+        <div class="card-body d-flex flex-column flex-sm-row align-items-sm-center gap-3">
+          <div class="flex-shrink-0">
+            <%= render partial: "me/friends/display_user_avatar",
+                locals: { user: request_user } %>
+          </div>
+
+          <div class="flex-grow-1">
+            <%= render partial: "me/friends/friend_status_requested",
+                locals: { friend: request_user } %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>

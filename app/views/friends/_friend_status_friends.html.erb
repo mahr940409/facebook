@@ -1,15 +1,35 @@
+<div class="d-flex flex-column gap-3">
+  <% comun_friends.each do |comun_friend| %>
+    <div class="card border-0 shadow-sm">
+      <div class="card-body d-flex flex-column flex-sm-row align-items-sm-center gap-3">
+        <div class="flex-shrink-0">
+          <%= render partial: "display_user_avatar",
+              locals: { user: comun_friend } %>
+        </div>
 
+        <div class="flex-grow-1">
+          <%= render partial: "friend",
+              locals: { friend: comun_friend } %>
 
-<%comun_friends.each do |comun_friend|%>
-  <%= render partial: "display_user_avatar", locals: {user: comun_friend} %>
-  <%= render partial: "friend", locals: {friend: comun_friend} %>
+          <% if comun_friend.mutual == true %>
+            <span class="badge text-bg-light border mt-2">Amigo en común</span>
+          <% end %>
+        </div>
 
-  <%if comun_friend.mutual == true%>
-    
-    <h4>Amigo en comun</h4><%=  button_to "Eliminar amigo", friend_path(id: comun_friend.friend_obj_id), method: :delete, class:"btn btn-danger"%>
-  <%else%>
-    <%= button_to "Añadir amigo", friends_path(id: comun_friend.user_id), method: :post, class:"btn btn-success"%> 
-    
-  <%end%>
-  
-<%end%>
+        <div class="flex-shrink-0">
+          <% if comun_friend.mutual == true %>
+            <%= button_to "Eliminar amigo",
+                friend_path(id: comun_friend.friend_obj_id),
+                method: :delete,
+                class: "btn btn-outline-danger btn-sm" %>
+          <% else %>
+            <%= button_to "Añadir amigo",
+                friends_path(id: comun_friend.user_id),
+                method: :post,
+                class: "btn btn-primary btn-sm" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

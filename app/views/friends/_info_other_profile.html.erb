@@ -1,0 +1,21 @@
+<div class="col-md-3">
+  <div class="card border-0 shadow-sm text-center">
+    <div class="card-body p-4">
+      <% if user.avatar.attached? %>
+        <%= image_tag user.avatar,
+            class: "rounded-circle object-fit-cover mb-3",
+            style: "width: 100px; height: 100px;",
+            alt: "Foto de perfil" %>
+      <% else %>
+        <div class="bg-light rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3"
+             style="width: 100px; height: 100px;">
+          <span class="text-muted small">Sin foto</span>
+        </div>
+      <% end %>
+
+      <h5 class="card-title mb-0">
+        <%= user.name || user.email.split("@").first %>
+      </h5>
+    </div>
+  </div>
+</div>

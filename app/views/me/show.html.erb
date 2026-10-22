@@ -1,63 +1,64 @@
-<div class="card border-0 rounded-3 shadow-lg mx-auto p-3" style="max-width: 396px;">
+<div class="container py-4">
+  <div class="card border-0 rounded-3 shadow-sm mx-auto" style="max-width: 440px;">
+    <div class="card-body p-4">
+      <h2 class="h4 text-center mb-1">Editar perfil</h2>
+      <p class="text-muted text-center mb-4">
+        <%= [@me.name, @me.lastname].compact_blank.join(" ").presence || @me.email %>
+      </p>
 
-  <div class="text-center mb-4">
-    <h4>Nombre: <%= @me.name %></h4>
-    <h4>Apellido: <%= @me.lastname %></h4>
-  </div>
+      <%= form_with model: @me, url: users_me_path, method: :patch do |form| %>
+        <% if current_user.avatar.attached? %>
+          <div class="text-center mb-3">
+            <%= image_tag current_user.avatar,
+                class: "rounded-circle object-fit-cover",
+                style: "width: 100px; height: 100px;",
+                alt: "Foto de perfil actual" %>
+          </div>
 
+          <div class="form-check mb-3">
+            <%= form.check_box :remove_avatar, class: "form-check-input" %>
+            <%= form.label :remove_avatar,
+                "Eliminar foto actual",
+                class: "form-check-label" %>
+          </div>
+        <% end %>
 
-  <%= form_with model: @me, url: users_me_path, method: :patch do |form| %>
-
-    <% if current_user.avatar.attached? %>
-      <div class="current-avatar">
-        <p>Avatar actual:</p>
-        <%= image_tag current_user.avatar, class: "rounded circle", style: "width: 100px; height: 100px" %>      
-        <div class="checkbox-field">
-          <%= form.check_box :remove_avatar %>
-          <%= form.label :remove_avatar, "Eliminar avatar actual" %>
-        </div>
         <div class="mb-3">
-          <%= form.label :avatar, "Foto de perfil" %>
-          <%= form.file_field :avatar %>
+          <%= form.label :avatar, "Foto de perfil", class: "form-label" %>
+          <%= form.file_field :avatar, class: "form-control" %>
         </div>
-      </div>
-    <%else%>
-      <div class="mb-3">
-      <%= form.label :avatar, "Foto de perfil" %>
-      <%= form.file_field :avatar %>
+
+        <div class="mb-3">
+          <%= form.label :name, "Nombre", class: "form-label" %>
+          <%= form.text_field :name, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :lastname, "Apellido", class: "form-label" %>
+          <%= form.text_field :lastname, class: "form-control" %>
+        </div>
+
+        <hr class="my-4">
+
+        <div class="mb-3">
+          <%= form.label :current_password, "Contraseña actual", class: "form-label" %>
+          <%= form.password_field :current_password, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :password, "Nueva contraseña", class: "form-label" %>
+          <%= form.password_field :password, class: "form-control" %>
+        </div>
+
+        <div class="mb-4">
+          <%= form.label :password_confirmation, "Confirmar nueva contraseña", class: "form-label" %>
+          <%= form.password_field :password_confirmation, class: "form-control" %>
+        </div>
+
+        <div class="d-grid">
+          <%= form.submit "Guardar cambios", class: "btn btn-primary" %>
+        </div>
+      <% end %>
     </div>
-    <%end%>
-  
-
-    <div class="mb-3">
-      <%= form.label :name, "Nombre", class: "form-label" %>
-      <%= form.text_field :name, class: "form-control" %>
-    </div>
-
-    <div class="mb-3">
-      <%= form.label :lastname, "Apellido", class: "form-label" %>
-      <%= form.text_field :lastname, class: "form-control" %>
-    </div>
-
-    <div class="mb-3">
-      <%= form.label :current_password, "Contraseña actual", class: "form-label" %>
-      <%= form.password_field :current_password, class: "form-control" %>
-    </div>
-
-    <div class="mb-3">
-      <%= form.label :password, "Nueva contraseña", class: "form-label" %>
-      <%= form.password_field :password, class: "form-control" %>
-    </div>
-
-    <div class="mb-3">
-      <%= form.label :password_confirmation, "Confirmar nueva contraseña", class: "form-label" %>
-      <%= form.password_field :password_confirmation, class: "form-control" %>
-    </div>
-
-    <div class="d-grid mb-3">
-      <%= form.submit "Editar usuario", class: "btn btn-outline-primary" %>
-    </div>
-
-  <% end %>
-
+  </div>
 </div>
