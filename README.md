@@ -1,35 +1,35 @@
 # Facebook
 
-Aplicación web tipo red social desarrollada con Ruby on Rails. Permite crear una cuenta, publicar contenido, conectar con otros usuarios e intercambiar mensajes.
+A social network web application built with Ruby on Rails. Users can create accounts, publish content, connect with other users, and exchange messages.
 
-## Funcionalidades
+## Features
 
-- Registro, inicio y cierre de sesión, recuperación de contraseña y gestión de usuarios mediante Devise.
-- Página principal con publicaciones propias y de amigos.
-- Creación, edición y eliminación de publicaciones de texto.
-- Carga y eliminación de imágenes en publicaciones y avatares mediante Active Storage.
-- Solicitudes de amistad: enviar, aceptar y rechazar.
-- Consulta de perfiles y amistades.
-- Comentarios y “likes” en publicaciones.
-- Chats individuales con historial de mensajes.
-- Diseño responsive basado en Bootstrap.
+- User registration, sign-in, sign-out, password recovery, and account management with Devise.
+- A home feed with the user's own posts and posts from friends.
+- Creation, editing, and deletion of text posts.
+- Image uploads and removal for posts and avatars through Active Storage.
+- Friend requests that can be sent, accepted, or rejected.
+- Profile and friend list views.
+- Comments and likes on posts.
+- One-to-one chats with message history.
+- Responsive layout based on Bootstrap.
 
-## Tecnologías
+## Technologies
 
-- Ruby on Rails `8.1.3` o superior dentro de la serie 8.1.
-- SQLite3, Puma y Devise.
-- Hotwire (Turbo y Stimulus) e Importmap.
-- Bootstrap 5 y Dart Sass.
-- Active Storage para archivos adjuntos.
-- Solid Cache, Solid Queue y Solid Cable.
+- Ruby on Rails `8.1.3` or higher within the 8.1 series.
+- SQLite3, Puma, and Devise.
+- Hotwire (Turbo and Stimulus) and Importmap.
+- Bootstrap 5 and Dart Sass.
+- Active Storage for file attachments.
+- Solid Cache, Solid Queue, and Solid Cable.
 
-## Requisitos previos
+## Requirements
 
-- Ruby y Bundler.
+- Ruby and Bundler.
 - SQLite3.
-- Node.js, si tu instalación de Sass lo requiere.
+- Node.js, if required by your Sass installation.
 
-Comprueba las instalaciones con:
+Check your installations with:
 
 ```bash
 ruby --version
@@ -37,7 +37,7 @@ bundle --version
 sqlite3 --version
 ```
 
-## Instalación local
+## Local setup
 
 ```bash
 git clone https://github.com/mahr940409/facebook.git
@@ -45,70 +45,70 @@ cd facebook
 bin/setup --skip-server
 ```
 
-El proyecto utiliza SQLite y crea sus bases de datos dentro de `storage/`. Para reiniciar la base de datos de desarrollo:
+The project uses SQLite and creates its databases inside `storage/`. To reset the development database:
 
 ```bash
 bin/setup --reset --skip-server
 ```
 
-## Ejecutar la aplicación
+## Running the application
 
-Para iniciar el servidor junto con el compilador/watch de estilos:
+To start the server together with the CSS compiler/watch process:
 
 ```bash
 bin/dev
 ```
 
-Abre [http://localhost:3000](http://localhost:3000). También puedes iniciar únicamente Rails con `bin/rails server`.
+Then open [http://localhost:3000](http://localhost:3000). You can also start only the Rails server with `bin/rails server`.
 
-## Pruebas
+## Tests
 
 ```bash
 bin/rails test
 ```
 
-Para ejecutar una prueba específica:
+To run a specific test:
 
 ```bash
 bin/rails test test/models/user_test.rb
 ```
 
-## Comandos útiles
+## Useful commands
 
 ```bash
-bin/rails db:prepare       # Preparar la base de datos
-bin/rails db:migrate       # Ejecutar migraciones pendientes
-bin/rails routes            # Revisar las rutas
-bin/brakeman               # Analizar seguridad
-bin/bundler-audit          # Revisar vulnerabilidades de dependencias
-bin/rubocop                # Revisar estilo Ruby
+bin/rails db:prepare       # Prepare the database
+bin/rails db:migrate       # Run pending migrations
+bin/rails routes           # Review available routes
+bin/brakeman              # Run security analysis
+bin/bundler-audit         # Check dependencies for vulnerabilities
+bin/rubocop               # Check Ruby code style
 ```
 
-## Estructura principal
+## Main structure
 
 ```text
 app/
-├── controllers/   # Peticiones y acciones de la aplicación
-├── models/        # Usuarios, publicaciones, amistades, chats y mensajes
-├── views/         # Plantillas HTML/ERB
-└── javascript/    # Importmap y controladores Stimulus
-config/            # Rutas y configuración
-db/                # Migraciones, esquema y datos iniciales
-test/              # Pruebas automatizadas
+├── controllers/   # Request handling and application actions
+├── models/        # Users, posts, friendships, chats, and messages
+├── views/         # HTML/ERB templates
+└── javascript/    # Importmap and Stimulus controllers
+config/            # Routes and application configuration
+db/                # Migrations, schema, and seed data
+test/              # Automated tests
 ```
 
-## Base de datos y archivos
+## Database and uploaded files
 
-En desarrollo, la base de datos principal es `storage/development.sqlite3`. Las imágenes de perfiles y publicaciones se gestionan con Active Storage y se almacenan localmente en desarrollo. En producción, el directorio `storage/` debe mantenerse persistente para no perder la base de datos ni los archivos subidos.
+In development, the main database is `storage/development.sqlite3`. Profile and post images are managed by Active Storage and stored locally in development. In production, the `storage/` directory must remain persistent to avoid losing the database and uploaded files.
 
-## Producción
+## Production
 
-El proyecto incluye configuración para despliegue con Docker y Kamal. Antes de desplegar, revisa las credenciales, las variables de producción, la persistencia de `storage/`, Active Storage y la configuración de correo de Devise.
+The project includes Docker and Kamal deployment configuration. Before deploying, review production credentials and environment variables, `storage/` persistence, Active Storage, and Devise email configuration.
 
-## Estado de la revisión
+## Review status
 
-Esta documentación se generó a partir de las rutas, modelos, controladores, dependencias y configuración actuales. No se modificó la lógica de la aplicación ni sus vistas existentes.
+This documentation was prepared from the current routes, models, controllers, dependencies, and configuration. The application logic and existing views were not changed as part of the documentation work.
 
-## Licencia
+## License
 
-El proyecto no incluye actualmente un archivo de licencia. Añade una antes de publicarlo si quieres definir las condiciones de uso y distribución.
+This project does not currently include a license file. Add one before publishing if you want to define the terms of use and distribution.
